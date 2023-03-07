@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // function solution(keymap, targets) {
+      //   const result = Array.from({ length: targets.length }, (_, x) => 0);
+      //   for (let i = 0; i < targets.length; i++) {
+      //     for (let j = 0; j < targets[i].length; j++) {
+      //       let answer = Number.MAX_SAFE_INTEGER;
+      //       for (let k = 0; k < keymap.length; k++) {
+      //         if (keymap[k].indexOf(targets[i][j]) !== -1)
+      //           answer = Math.min(answer, keymap[k].indexOf(targets[i][j]));
+      //       }
+      //       result[i] += answer + 1;
+      //     }
+      //   }
+      //   return result.map((v) => (v > Number.MAX_SAFE_INTEGER - 1 ? -1 : v));
+      // }
+      // console.log(solution(["ABACD", "BCEFD"], ["ABCD", "AABB"]));
+      // console.log(solution(["AA", "CC"], ["B", "T"]));
+
+      // function solution(totalTime, score, time) {
+      //   let result = 0;
+      //   let answer = 0;
+      //   const Arr = Array.from({ length: score.length }, () => false);
+      //   const DFS = (v, re) => {
+      //     for (let i = 0; i < score.length; i++) {
+      //       if (v >= time[i] && Arr[i] === false) {
+      //         Arr[i] = true;
+      //         DFS(v - time[i], re + score[i]);
+      //         Arr[i] = false;
+      //       }
+      //       answer = Math.max(answer, re);
+      //     }
+      //   };
+      //   DFS(totalTime, 0);
+      //   return answer;
+      // }
+      // // console.log(solution(20, [10, 25, 15, 6, 7], [5, 12, 8, 3, 4]));
+      // console.log(solution(10, [10, 5, 15, 25, 100], [5, 5, 5, 5, 10]));
+
+      // function solution(k, dungeons) {
+      //   const Arr = Array.from({ length: dungeons.length }, () => false);
+      //   const a = dungeons.map((v) => v[0]);
+      //   const b = dungeons.map((v) => v[1]);
+      //   let answer = 0;
+      //   const DFS = (he, count) => {
+      //     for (let i = 0; i < dungeons.length; i++) {
+      //       if (he >= a[i] && Arr[i] === false) {
+      //         Arr[i] = true;
+      //         DFS(he - b[i], count + 1);
+      //         Arr[i] = false;
+      //       }
+      //       answer = Math.max(count, answer);
+      //     }
+      //   };
+      //   DFS(k, 0);
+      //   return answer;
+      // }
+      // console.log(
+      //   solution(80, [
+      //     [80, 20],
+      //     [50, 40],
+      //     [30, 10],
+      //   ]),
+      // );
+
+      // function solution(cards1, cards2, goal) {
+      //   const arr = [];
+      //   let i = 0;
+      //   while (arr.length < goal.length) {
+      //     if (cards1[0] === goal[i]) {
+      //       arr.push(cards1.shift());
+      //       i++;
+      //     } else if (cards2[0] === goal[i]) {
+      //       arr.push(cards2.shift());
+      //       i++;
+      //     } else {
+      //       break;
+      //     }
+      //   }
+      //   return arr.length === goal.length ? "YES" : "NO";
+      // }
+      // console.log(
+      //   solution(
+      //     ["i", "drink", "water"],
+      //     ["want", "to"],
+      //     ["i", "want", "to", "drink", "water"],
+      //   ),
+      // );
+
+      // function solution(nums) {
+      //   const arr = [];
+      //   const lengths = Array.from({ length: nums.length }, () => false);
+      //   const DFS = (n, re) => {
+      //     if (n === 3) {
+      //       for (let i = 2; i <= Math.ceil(Math.sqrt(re)); i++) {
+      //         if (re % i === 0) {
+      //           return false;
+      //         }
+      //       }
+      //       arr.push(re);
+      //     } else {
+      //       for (let i = 0; i < nums.length; i++) {
+      //         if (lengths[i] === false) {
+      //           lengths[i] = true;
+      //           DFS(n + 1, re + nums[i]);
+      //           lengths[i] = false;
+      //         }
+      //       }
+      //     }
+      //   };
+      //   DFS(0, 0);
+      //   return [...new Set(arr)].length;
+      // }
+      // console.log(solution([1, 2, 7, 6, 4]));
+
+      // function solution(target, numbers) {
+      //   let [lt, rt] = [0, numbers.length - 1];
+      //   const numbersSort = numbers.sort((a, b) => a - b);
+      //   let result = 0;
+      //   while (lt <= rt) {
+      //     const mid = parseInt((lt + rt) / 2);
+      //     if (numbersSort[mid] === target) {
+      //       result = mid + 1;
+      //       break;
+      //     }
+      //     if (numbersSort[mid] < target) lt = mid;
+      //     else rt = mid;
+      //   }
+      //   return result;
+      // }
+
+      // console.log(solution(32, [23, 87, 65, 12, 57, 32, 99, 81]));
+      function solution(genres, plays) {
+        const a = new Map();
+        const result = [];
+        for (let i = 0; i < genres.length; i++) {
+          if (a.has(genres[i])) {
+            const b = a.get(genres[i]);
+            a.set(genres[i], [...b, [plays[i], i]]);
+          } else a.set(genres[i], [[plays[i], i]]);
+        }
+        const ob = [];
+        for ([key, value] of a) {
+          let sum = 0;
+          for (let abc of value) {
+            sum += abc[0];
+          }
+          ob.push([key, value.sort((a, b) => b[0] - a[0]), sum]);
+        }
+        const zz = ob.sort((a, b) => b[2] - a[2]);
+        for (let j = 0; j < zz.length; j++) {
+          for (let k = 0; k < 2; k++) {
+            if (zz[j][1][k]) {
+              result.push(zz[j][1][k][1]);
+            }
+          }
+        }
+        return result;
+      }
+      console.log(
+        solution(
+          ["a", "b", "c", "d", "e", "e"],
+          [500, 600, 150, 800, 2500, 100],
+        ),
+      );
+      // console.log(
+      //   solution(["pop", "pop", "pop", "rap", "rap"], [45, 50, 40, 60, 70]),
+      // );
+    </script>
+  </body>
+</html>
