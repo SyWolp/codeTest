@@ -643,30 +643,108 @@
       // );
 
       // 달리기 경주
-      function solution(players, callings) {
-        const map = new Map();
-        const map2 = new Map();
-        for (let i = 0; i < players.length; i++) {
-          map.set(players[i], i);
-          map2.set(i, players[i]);
+      // function solution(players, callings) {
+      //   const map = new Map();
+      //   const map2 = new Map();
+      //   for (let i = 0; i < players.length; i++) {
+      //     map.set(players[i], i);
+      //     map2.set(i, players[i]);
+      //   }
+      //   for (let j = 0; j < callings.length; j++) {
+      //     map.set(callings[j], map.get(callings[j]) - 1);
+      //     map.set(
+      //       map2.get(map.get(callings[j])),
+      //       map.get(map2.get(map.get(callings[j]))) + 1,
+      //     );
+      //     map2.set(map.get(callings[j]) + 1, map2.get(map.get(callings[j])));
+      //     map2.set(map.get(callings[j]), callings[j]);
+      //   }
+      //   return [...map].sort((a, b) => a[1] - b[1]).map((v) => v[0]);
+      // }
+      // console.log(
+      //   solution(
+      //     ["mumu", "soe", "poe", "kai", "mine"],
+      //     ["kai", "kai", "mine", "mine", "poe", "kai"],
+      //   ),
+      // );
+
+      // function solution(land) {
+      //   const landFlat = land.flat();
+      //   let result = [0, -1];
+      //   let bigNumber = 0;
+      //   let index = 0;
+      //   let targetIndex = -1;
+      //   for (let i = 0; i <= landFlat.length; i++) {
+      //     if ((i !== 0 && i % land[0].length === 0) || i === landFlat.length) {
+      //       index = 0;
+      //       result[0] += bigNumber;
+      //       result[1] = targetIndex;
+      //       bigNumber = 0;
+      //     }
+      //     if (result[1] !== index && bigNumber <= landFlat[i]) {
+      //       if (bigNumber === landFlat[i]) {
+      //         targetIndex = -1;
+      //       } else {
+      //         bigNumber = landFlat[i];
+      //         targetIndex = index;
+      //       }
+      //     }
+      //     index++;
+      //   }
+      //   return result[0];
+      // }
+
+      // console.log(
+      //   solution([
+      //     [1, 2, 3, 5],
+      //     [5, 6, 8, 7],
+      //     [4, 3, 2, 1],
+      //   ]), // 17
+      // );
+      // console.log(
+      //   solution([
+      //     [6, 5, 5, 5],
+      //     [3, 4, 3, 3],
+      //     [3, 2, 2, 2],
+      //   ]), // 13
+      // );
+      // console.log(
+      //   solution([
+      //     [1, 1, 1, 2],
+      //     [1, 1, 1, 3],
+      //     [1, 1, 1, 2],
+      //   ]), // 5
+      // );
+      // console.log(
+      //   solution([
+      //     [1, 1, 3, 1],
+      //     [2, 3, 2, 2],
+      //     [1, 4, 1, 1],
+      //   ]), // 17
+      // );
+      // console.log(
+      //   solution([[1, 2, 3, 5], [5, 6, 8, 7], [4, 3, 2, 1]]), // 17
+      // );
+      // console.log(
+      //   solution([[1, 2, 3, 5], [5, 6, 8, 7], [4, 3, 2, 1]]), // 17
+      // );
+
+      function solution(wallpaper) {
+        const result = [Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER, 0, 0];
+        const arr = wallpaper.map((v) => v.split(""));
+        for (let i = 0; i < arr.length; i++) {
+          if (arr[i].includes("#") && result[0] > i) result[0] = i;
+          if (arr[i].includes("#") && result[2] < i + 1) result[2] = i + 1;
         }
-        for (let j = 0; j < callings.length; j++) {
-          map.set(callings[j], map.get(callings[j]) - 1);
-          map.set(
-            map2.get(map.get(callings[j])),
-            map.get(map2.get(map.get(callings[j]))) + 1,
-          );
-          map2.set(map.get(callings[j]) + 1, map2.get(map.get(callings[j])));
-          map2.set(map.get(callings[j]), callings[j]);
+        for (let j = 0; j < arr[0].length; j++) {
+          for (let k = 0; k < arr.length; k++) {
+            if (arr[k][j] === "#" && result[1] > j) result[1] = j;
+            if (arr[k][j] === "#" && result[3] < j + 1) result[3] = j + 1;
+          }
         }
-        return [...map].sort((a, b) => a[1] - b[1]).map((v) => v[0]);
+        return result;
       }
-      console.log(
-        solution(
-          ["mumu", "soe", "poe", "kai", "mine"],
-          ["kai", "kai", "mine", "mine", "poe", "kai"],
-        ),
-      );
+      console.log(solution(["..", "#."]));
     </script>
   </body>
 </html>
