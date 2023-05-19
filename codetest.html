@@ -823,26 +823,51 @@
       // console.log(solution([1, 2, 3, 4, 5], 7));
       // console.log(solution([1, 1, 1, 2, 3, 4, 5], 5));
       // console.log(solution([2, 2, 2, 2, 2], 6));
-      function solution(s) {
-        const sArr = s.split("");
-        let firstString = "";
-        let stringArr = [];
-        const resultArr = [];
-        while (sArr.length) {
-          if (firstString === "") firstString = sArr[0];
-          stringArr.push(sArr.shift());
-          const string = stringArr.filter((v) => v === firstString);
-          const notString = stringArr.filter((v) => v !== firstString);
-          if (string.length === notString.length) {
-            resultArr.push(stringArr);
-            stringArr = [];
-            firstString = "";
+      // function solution(s) {
+      //   const sArr = s.split("");
+      //   let firstString = "";
+      //   let stringArr = [];
+      //   const resultArr = [];
+      //   while (sArr.length) {
+      //     if (firstString === "") firstString = sArr[0];
+      //     stringArr.push(sArr.shift());
+      //     const string = stringArr.filter((v) => v === firstString);
+      //     const notString = stringArr.filter((v) => v !== firstString);
+      //     if (string.length === notString.length) {
+      //       resultArr.push(stringArr);
+      //       stringArr = [];
+      //       firstString = "";
+      //     }
+      //   }
+      //   if (stringArr.length) resultArr.push(stringArr);
+      //   return resultArr.length;
+      // }
+      // console.log(solution("aaabbaccccabba"));
+      function solution(order) {
+        const sub = [];
+        const olength = order.length;
+        let k = 1;
+        let i = 0;
+        while (true) {
+          if (
+            (k > olength && sub[sub.length - 1] !== order[i]) ||
+            (k > olength && !sub.length)
+          )
+            break;
+          if (order[0] !== k && sub[sub.length - 1] !== order[i]) {
+            sub.push(k);
+            k++;
+          } else if (sub[sub.length - 1] === order[i]) {
+            i++;
+            sub.pop();
+          } else if (order[i] === k) {
+            i++;
+            k++;
           }
         }
-        if (stringArr.length) resultArr.push(stringArr);
-        return resultArr.length;
+        return i;
       }
-      console.log(solution("aaabbaccccabba"));
+      console.log(solution([2, 1, 6, 7, 5, 8, 4, 9, 3, 10]));
     </script>
   </body>
 </html>
