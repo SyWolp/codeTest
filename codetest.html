@@ -920,20 +920,41 @@
       // );
 
       // 둘만의 암호
-      function solution(s, skip, index) {
-        const abc = `abcdefghijklmnopqrstuvwxyz`
-          .split("")
-          .filter((v) => !skip.includes(v));
-        let i = 0;
-        let result = "";
-        for (let x of s) {
-          const ii = abc.findIndex((v) => v === x);
-          console.log(ii, (index + ii) % abc.length);
-          result += abc[(index + ii) % abc.length];
+      // function solution(s, skip, index) {
+      //   const abc = `abcdefghijklmnopqrstuvwxyz`
+      //     .split("")
+      //     .filter((v) => !skip.includes(v));
+      //   let i = 0;
+      //   let result = "";
+      //   for (let x of s) {
+      //     const ii = abc.findIndex((v) => v === x);
+      //     console.log(ii, (index + ii) % abc.length);
+      //     result += abc[(index + ii) % abc.length];
+      //   }
+      //   return result;
+      // }
+      // console.log(solution("abcde", "fghijklmnopqrstuvwxyz", 1));
+
+      function solution(numbers) {
+        const arr = Array.from({ length: numbers.length }, () => -1);
+        const subArr = [];
+        for (let i = 0; i < numbers.length; i++) {
+          if (numbers[i] < numbers[i + 1]) {
+            arr[i] = numbers[i + 1];
+          } else {
+            subArr.push([numbers[i], i]);
+          }
+          if (subArr.length) {
+            while (subArr[subArr.length - 1][0] < numbers[i + 1]) {
+              arr[subArr[subArr.length - 1][1]] = numbers[i + 1];
+              subArr.pop();
+              if (subArr.length === 0) break;
+            }
+          }
         }
-        return result;
+        return arr;
       }
-      console.log(solution("abcde", "fghijklmnopqrstuvwxyz", 1));
+      console.log(solution([9, 1, 5, 3, 6, 2]));
     </script>
   </body>
 </html>
