@@ -935,26 +935,57 @@
       // }
       // console.log(solution("abcde", "fghijklmnopqrstuvwxyz", 1));
 
-      function solution(numbers) {
-        const arr = Array.from({ length: numbers.length }, () => -1);
-        const subArr = [];
-        for (let i = 0; i < numbers.length; i++) {
-          if (numbers[i] < numbers[i + 1]) {
-            arr[i] = numbers[i + 1];
-          } else {
-            subArr.push([numbers[i], i]);
-          }
-          if (subArr.length) {
-            while (subArr[subArr.length - 1][0] < numbers[i + 1]) {
-              arr[subArr[subArr.length - 1][1]] = numbers[i + 1];
-              subArr.pop();
-              if (subArr.length === 0) break;
+      // function solution(numbers) {
+      //   const arr = Array.from({ length: numbers.length }, () => -1);
+      //   const subArr = [];
+      //   for (let i = 0; i < numbers.length; i++) {
+      //     if (numbers[i] < numbers[i + 1]) {
+      //       arr[i] = numbers[i + 1];
+      //     } else {
+      //       subArr.push([numbers[i], i]);
+      //     }
+      //     if (subArr.length) {
+      //       while (subArr[subArr.length - 1][0] < numbers[i + 1]) {
+      //         arr[subArr[subArr.length - 1][1]] = numbers[i + 1];
+      //         subArr.pop();
+      //         if (subArr.length === 0) break;
+      //       }
+      //     }
+      //   }
+      //   return arr;
+      // }
+      // console.log(solution([9, 1, 5, 3, 6, 2]));
+
+      function solution(nums) {
+        let result = [];
+        let answer = 0;
+        const search = (number) => {
+          const nums = parseInt(Math.sqrt(number));
+          for (let i = 2; i <= nums; i++) {
+            if (number % i === 0) {
+              return false;
             }
           }
-        }
-        return arr;
+          return true;
+        };
+        const DFS = (index) => {
+          if (result.length > 2 || index === nums.length) {
+            // console.log(result);
+            if (result.length === 3 && search(result.reduce((a, b) => a + b))) {
+              answer++;
+            }
+            return;
+          } else {
+            result.push(nums[index]);
+            DFS(index + 1);
+            result.pop(nums[index]);
+            DFS(index + 1);
+          }
+        };
+        DFS(0);
+        return answer;
       }
-      console.log(solution([9, 1, 5, 3, 6, 2]));
+      console.log(solution([1, 2, 3, 4]));
     </script>
   </body>
 </html>
