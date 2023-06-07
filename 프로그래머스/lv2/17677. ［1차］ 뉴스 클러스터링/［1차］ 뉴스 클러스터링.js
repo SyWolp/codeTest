@@ -1,7 +1,7 @@
 function solution(str1, str2) {
         const sumArr = [];
         let [min, max] = [0, 0];
-        
+
         const strings = (str) => {
           const arr = [];
           for (let i = 0; i < str.length; i++) {
