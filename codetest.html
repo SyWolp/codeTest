@@ -1000,46 +1000,96 @@
       // }
       // console.log(solution(3, 1, 2));
 
-      function solution(str1, str2) {
-        const sumArr = [];
-        let [min, max] = [0, 0];
+      // function solution(str1, str2) {
+      //   const sumArr = [];
+      //   let [min, max] = [0, 0];
 
-        const strings = (str) => {
-          const arr = [];
-          for (let i = 0; i < str.length; i++) {
-            if (
-              /[a-zA-Z]/.test(str[i]) &&
-              /[a-zA-Z]/.test(str[i + 1]) &&
-              str[i + 1]
-            ) {
-              const s = str[i].toUpperCase() + str[i + 1].toUpperCase();
-              arr.push(s);
-              if (!sumArr.includes(s)) sumArr.push(s);
-            }
-          }
-          return arr;
-        };
-        const mapFn = (v) => {
-          const map = new Map();
-          const strArr = strings(v);
-          for (let i = 0; i < strArr.length; i++) {
-            if (map.has(strArr[i])) map.set(strArr[i], map.get(strArr[i]) + 1);
-            else map.set(strArr[i], 1);
-          }
-          return map;
-        };
-        const a1 = mapFn(str1);
-        const a2 = mapFn(str2);
-        for (let j = 0; j < sumArr.length; j++) {
-          const one = a1.has(sumArr[j]) ? a1.get(sumArr[j]) : 0;
-          const two = a2.has(sumArr[j]) ? a2.get(sumArr[j]) : 0;
-          min += Math.min(one, two);
-          max += Math.max(one, two);
+      //   const strings = (str) => {
+      //     const arr = [];
+      //     for (let i = 0; i < str.length; i++) {
+      //       if (
+      //         /[a-zA-Z]/.test(str[i]) &&
+      //         /[a-zA-Z]/.test(str[i + 1]) &&
+      //         str[i + 1]
+      //       ) {
+      //         const s = str[i].toUpperCase() + str[i + 1].toUpperCase();
+      //         arr.push(s);
+      //         if (!sumArr.includes(s)) sumArr.push(s);
+      //       }
+      //     }
+      //     return arr;
+      //   };
+      //   const mapFn = (v) => {
+      //     const map = new Map();
+      //     const strArr = strings(v);
+      //     for (let i = 0; i < strArr.length; i++) {
+      //       if (map.has(strArr[i])) map.set(strArr[i], map.get(strArr[i]) + 1);
+      //       else map.set(strArr[i], 1);
+      //     }
+      //     return map;
+      //   };
+      //   const a1 = mapFn(str1);
+      //   const a2 = mapFn(str2);
+      //   for (let j = 0; j < sumArr.length; j++) {
+      //     const one = a1.has(sumArr[j]) ? a1.get(sumArr[j]) : 0;
+      //     const two = a2.has(sumArr[j]) ? a2.get(sumArr[j]) : 0;
+      //     min += Math.min(one, two);
+      //     max += Math.max(one, two);
+      //   }
+      //   return min ? parseInt((min / max) * 65536) : 0;
+      // }
+      // console.log(solution("E=M*C^2", "e=m*c^2"));
+
+      function solution(new_id) {
+        let idArr = new_id
+          .toLowerCase()
+          .split("")
+          .filter(
+            (v) =>
+              ![
+                "~",
+                "!",
+                "@",
+                "#",
+                "$",
+                "%",
+                "^",
+                "&",
+                "*",
+                "(",
+                ")",
+                "=",
+                "+",
+                "[",
+                "{",
+                "]",
+                "}",
+                ":",
+                "?",
+                "<",
+                ">",
+                "/",
+              ].includes(v),
+          )
+          .join("")
+          .replace(/\.+/gi, ".")
+          .replace(/^\./gi, "")
+          .replace(/\.$/gi, "");
+        console.log(idArr);
+        if (idArr.length === 0) idArr += "aaa";
+        else if (idArr.length > 15) {
+          idArr = idArr.slice(0, 15).replace(/\.$/gi, "");
+        } else {
+          idArr = idArr.replace(/\.$/gi, "");
         }
-        console.log(0 / 12);
-        return min ? parseInt((min / max) * 65536) : 0;
+        if (idArr.length < 3) {
+          for (let i = idArr.length - 1; i < 2; i++) {
+            idArr += idArr[idArr.length - 1];
+          }
+        }
+        return idArr;
       }
-      console.log(solution("E=M*C^2", "e=m*c^2"));
+      console.log(solution(".................................."));
     </script>
   </body>
 </html>
