@@ -1040,56 +1040,100 @@
       // }
       // console.log(solution("E=M*C^2", "e=m*c^2"));
 
-      function solution(new_id) {
-        let idArr = new_id
-          .toLowerCase()
-          .split("")
-          .filter(
-            (v) =>
-              ![
-                "~",
-                "!",
-                "@",
-                "#",
-                "$",
-                "%",
-                "^",
-                "&",
-                "*",
-                "(",
-                ")",
-                "=",
-                "+",
-                "[",
-                "{",
-                "]",
-                "}",
-                ":",
-                "?",
-                "<",
-                ">",
-                "/",
-              ].includes(v),
-          )
-          .join("")
-          .replace(/\.+/gi, ".")
-          .replace(/^\./gi, "")
-          .replace(/\.$/gi, "");
-        console.log(idArr);
-        if (idArr.length === 0) idArr += "aaa";
-        else if (idArr.length > 15) {
-          idArr = idArr.slice(0, 15).replace(/\.$/gi, "");
-        } else {
-          idArr = idArr.replace(/\.$/gi, "");
-        }
-        if (idArr.length < 3) {
-          for (let i = idArr.length - 1; i < 2; i++) {
-            idArr += idArr[idArr.length - 1];
+      // function solution(new_id) {
+      //   let idArr = new_id
+      //     .toLowerCase()
+      //     .split("")
+      //     .filter(
+      //       (v) =>
+      //         ![
+      //           "~",
+      //           "!",
+      //           "@",
+      //           "#",
+      //           "$",
+      //           "%",
+      //           "^",
+      //           "&",
+      //           "*",
+      //           "(",
+      //           ")",
+      //           "=",
+      //           "+",
+      //           "[",
+      //           "{",
+      //           "]",
+      //           "}",
+      //           ":",
+      //           "?",
+      //           "<",
+      //           ">",
+      //           "/",
+      //         ].includes(v),
+      //     )
+      //     .join("")
+      //     .replace(/\.+/gi, ".")
+      //     .replace(/^\./gi, "")
+      //     .replace(/\.$/gi, "");
+      //   console.log(idArr);
+      //   if (idArr.length === 0) idArr += "aaa";
+      //   else if (idArr.length > 15) {
+      //     idArr = idArr.slice(0, 15).replace(/\.$/gi, "");
+      //   } else {
+      //     idArr = idArr.replace(/\.$/gi, "");
+      //   }
+      //   if (idArr.length < 3) {
+      //     for (let i = idArr.length - 1; i < 2; i++) {
+      //       idArr += idArr[idArr.length - 1];
+      //     }
+      //   }
+      //   return idArr;
+      // }
+      // console.log(solution(".................................."));
+
+      // function solution(word) {
+      //   const words = ["A", "E", "I", "O", "U"];
+      //   let index = 0;
+      //   const wordArr = Array.from({ length: 5 }, () => "");
+      //   while (true) {
+      //     for (let i = 0; i < words.length; i++) {
+      //       for (let j = 0; j < wordArr.length; j++) {
+      //         wordArr[j];
+      //         index++;
+      //       }
+      //     }
+      //     break;
+      //   }
+      // }
+      // console.log(solution("I"));
+
+      function solution(arrayA, arrayB) {
+        const arrrrr = [];
+        const fn = (fArr, sArr) => {
+          const aArr = [];
+          for (let i = 2; i <= fArr[0]; i++) {
+            if (fArr[0] % i === 0) aArr.push(i);
           }
-        }
-        return idArr;
+          let result = -1;
+          const bArr = aArr.sort((a, b) => b - a);
+          for (let j = 0; j < bArr.length; j++) {
+            if (result !== -1) break;
+            for (let k = 0; k < fArr.length; k++) {
+              if (sArr[k] % bArr[j] === 0) break;
+              if (fArr[k] % bArr[j] !== 0) break;
+              if (k === fArr.length - 1) {
+                result = bArr[j];
+                arrrrr.push(result);
+                break;
+              }
+            }
+          }
+        };
+        fn(arrayA, arrayB);
+        fn(arrayB, arrayA);
+        return arrrrr.length ? Math.max(...arrrrr) : 0;
       }
-      console.log(solution(".................................."));
+      console.log(solution([5, 4], [8, 10]));
     </script>
   </body>
 </html>
