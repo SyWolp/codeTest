@@ -1107,33 +1107,56 @@
       // }
       // console.log(solution("I"));
 
-      function solution(arrayA, arrayB) {
-        const arrrrr = [];
-        const fn = (fArr, sArr) => {
-          const aArr = [];
-          for (let i = 2; i <= fArr[0]; i++) {
-            if (fArr[0] % i === 0) aArr.push(i);
+      // function solution(arrayA, arrayB) {
+      //   const arrrrr = [];
+      //   const fn = (fArr, sArr) => {
+      //     const aArr = [];
+      //     for (let i = 2; i <= fArr[0]; i++) {
+      //       if (fArr[0] % i === 0) aArr.push(i);
+      //     }
+      //     let result = -1;
+      //     const bArr = aArr.sort((a, b) => b - a);
+      //     for (let j = 0; j < bArr.length; j++) {
+      //       if (result !== -1) break;
+      //       for (let k = 0; k < fArr.length; k++) {
+      //         if (sArr[k] % bArr[j] === 0) break;
+      //         if (fArr[k] % bArr[j] !== 0) break;
+      //         if (k === fArr.length - 1) {
+      //           result = bArr[j];
+      //           arrrrr.push(result);
+      //           break;
+      //         }
+      //       }
+      //     }
+      //   };
+      //   fn(arrayA, arrayB);
+      //   fn(arrayB, arrayA);
+      //   return arrrrr.length ? Math.max(...arrrrr) : 0;
+      // }
+      // console.log(solution([5, 4], [8, 10]));
+      function solution(routes) {
+        const arr = routes.sort((a, b) => a[0] - b[0]);
+        let ab = [arr[0][0], arr[0][1]];
+        let result = 1;
+        for (let i = 1; i < arr.length; i++) {
+          if (ab[1] >= arr[i][0]) {
+            ab[1] = Math.min(ab[1], arr[i][1]);
+          } else {
+            result++;
+            ab = [arr[i][0], arr[i][1]];
           }
-          let result = -1;
-          const bArr = aArr.sort((a, b) => b - a);
-          for (let j = 0; j < bArr.length; j++) {
-            if (result !== -1) break;
-            for (let k = 0; k < fArr.length; k++) {
-              if (sArr[k] % bArr[j] === 0) break;
-              if (fArr[k] % bArr[j] !== 0) break;
-              if (k === fArr.length - 1) {
-                result = bArr[j];
-                arrrrr.push(result);
-                break;
-              }
-            }
-          }
-        };
-        fn(arrayA, arrayB);
-        fn(arrayB, arrayA);
-        return arrrrr.length ? Math.max(...arrrrr) : 0;
+        }
+        return result;
       }
-      console.log(solution([5, 4], [8, 10]));
+      console.log(
+        solution([
+          [-20, 15],
+          [-20, -15],
+          [-14, -5],
+          [-18, -13],
+          [-5, -3],
+        ]),
+      );
     </script>
   </body>
 </html>
