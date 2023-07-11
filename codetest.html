@@ -1134,27 +1134,231 @@
       //   return arrrrr.length ? Math.max(...arrrrr) : 0;
       // }
       // console.log(solution([5, 4], [8, 10]));
-      function solution(routes) {
-        const arr = routes.sort((a, b) => a[0] - b[0]);
-        let ab = [arr[0][0], arr[0][1]];
-        let result = 1;
-        for (let i = 1; i < arr.length; i++) {
-          if (ab[1] >= arr[i][0]) {
-            ab[1] = Math.min(ab[1], arr[i][1]);
+      // function solution(routes) {
+      //   const arr = routes.sort((a, b) => a[0] - b[0]);
+      //   let ab = [arr[0][0], arr[0][1]];
+      //   let result = 1;
+      //   for (let i = 1; i < arr.length; i++) {
+      //     if (ab[1] >= arr[i][0]) {
+      //       ab[1] = Math.min(ab[1], arr[i][1]);
+      //     } else {
+      //       result++;
+      //       ab = [arr[i][0], arr[i][1]];
+      //     }
+      //   }
+      //   return result;
+      // }
+      // console.log(
+      //   solution([
+      //     [-20, 15],
+      //     [-20, -15],
+      //     [-14, -5],
+      //     [-18, -13],
+      //     [-5, -3],
+      //   ]),
+      // );
+
+      // function solution(arr) {
+      //   let dy = Array.from({ length: arr.length }, () => 1);
+      //   dy[0] = 1;
+      //   for (let i = 1; i < arr.length; i++) {
+      //     let max = 1;
+      //     for (let j = i - 1; j >= 0; j--) {
+      //       if (arr[i] > arr[j]) {
+      //         max = Math.max(max, dy[j] + 1);
+      //       }
+      //     }
+      //     dy[i] = max;
+      //   }
+      //   // for(let )
+      //   console.log(dy);
+      // }
+      // console.log(solution([2, 4, 9, 5, 3, 6, 7, 8, 1]));
+
+      // const solution = (number) => {
+      //   const stack = [];
+      //   const arr = [...number];
+      //   const resultArr = [];
+      //   const result = [];
+      //   let i = 1;
+      //   while (true) {
+      //     stack.push(i);
+      //     result.push("+");
+      //     while (true) {
+      //       if (stack[stack.length - 1] === arr[0]) {
+      //         resultArr.push(stack.pop());
+      //         arr.shift();
+      //         result.push("-");
+      //       }
+      //       if (
+      //         resultArr.length === number.length ||
+      //         arr.length === 0 ||
+      //         stack[stack.length - 1] !== arr[0]
+      //       ) {
+      //         break;
+      //       }
+      //     }
+      //     if (
+      //       resultArr.length === number.length ||
+      //       arr.length === 0 ||
+      //       i > number.length
+      //     )
+      //       break;
+      //     i++;
+      //   }
+      //   return arr.length ? "NO" : result;
+      // };
+
+      // console.log(solution([1, 2, 5, 3, 4]));
+      // const fs = require("fs");
+      // const input = fs
+      //   .readFileSync("test.txt")
+      //   .toString()
+      //   .trim()
+      //   .split("\n")
+      //   .slice(1)
+      //   .map((v) => v.split(" "))
+      //   .sort((a, b) => a[1] - b[1]);
+
+      // function solution(time) {
+      //   time.sort((a, b) => a[0] - b[0]);
+      //   const arr = [];
+      //   let result = 1;
+      //   for (let i = 0; i < time.length; i++) {
+      //     if (!arr.length) {
+      //       arr.push(time[i]);
+      //     } else {
+      //       console.log(arr);
+      //       for (let j = 0; j < arr.length; j++) {
+      //         if (parseInt(arr[j][1]) <= parseInt(time[i][0])) {
+      //           arr[j] = time[i];
+      //           break;
+      //         }
+      //         if (j === arr.length - 1) {
+      //           arr.push(time[i]);
+      //           result++;
+      //           break;
+      //         }
+      //       }
+      //     }
+      //   }
+      //   return result;
+      // }
+      // console.log(
+      //   solution([
+      //     [1, 8],
+      //     [3, 7],
+      //     [5, 6],
+      //     [6, 11],
+      //     [8, 10],
+      //     [9, 16],
+      //     [10, 14],
+      //     [11, 12],
+      //   ]),
+      // );
+      // console.log(
+      //   solution([
+      //     [1, 3],
+      //     [2, 4],
+      //     [3, 5],
+      //   ]),
+      // );
+
+      // function solution(t, p) {
+      //   const pLength = p.length;
+      //   const tSplit = t.split("");
+      //   let string = [];
+      //   let result = 0;
+      //   for (let i = 0; i < tSplit.length; i++) {
+      //     string.push(tSplit[i]);
+      //     if (string.length === pLength) {
+      //       if (parseInt(string.join("")) <= parseInt(p)) {
+      //         result++;
+      //       }
+      //       string.shift();
+      //     }
+      //   }
+      //   return result;
+      // }
+
+      // console.log(solution("3141592", "271"));
+      // function solution(players, callings) {
+      //   const map = new Map();
+      //   const map2 = new Map();
+      //   for (let i = 0; i < players.length; i++) {
+      //     map.set(players[i], i);
+      //     map2.set(i, players[i]);
+      //   }
+      //   for (let j = 0; j < callings.length; j++) {
+      //     map.set(callings[j], map.get(callings[j]) - 1);
+      //     map.set(
+      //       map2.get(map.get(callings[j])),
+      //       map.get(map2.get(map.get(callings[j]))) + 1,
+      //     );
+
+      //     map2.set(map.get(callings[j]) + 1, map2.get(map.get(callings[j])));
+      //     map2.set(map.get(callings[j]), callings[j]);
+      //   }
+      //   return [...map].sort((a, b) => a[1] - b[1]).map((v) => v[0]);
+      // }
+      // console.log(
+      //   solution(
+      //     ["mumu", "soe", "poe", "kai", "mine"],
+      //     ["kai", "kai", "mine", "mine"],
+      //   ),
+      // );
+
+      function solution(plans) {
+        const savePlans = [];
+        let clearPlans = [];
+        const plansTime = plans
+          .map((v) => [
+            v[0],
+            parseInt(v[1].split(":")[0]) * 60 + parseInt(v[1].split(":")[1]),
+            parseInt(v[2]),
+          ])
+          .sort((a, b) => a[1] - b[1]);
+        let time = plansTime[0][1];
+        while (true) {
+          if (time === plansTime[0][1] && plansTime.length === 1) {
+            clearPlans.push(plansTime.pop());
+            clearPlans = [...clearPlans, ...savePlans.reverse()];
+            break;
+          }
+          if (time === plansTime[0][1]) {
+            if (plansTime[1][1] - plansTime[0][1] < plansTime[0][2]) {
+              plansTime[0][2] =
+                plansTime[0][2] - (plansTime[1][1] - plansTime[0][1]);
+              time += plansTime[1][1] - plansTime[0][1];
+              savePlans.push(plansTime.shift());
+            } else {
+              time = time + plansTime[0][2];
+              clearPlans.push(plansTime.shift());
+            }
           } else {
-            result++;
-            ab = [arr[i][0], arr[i][1]];
+            if (savePlans.length) {
+              const saveTime =
+                savePlans[savePlans.length - 1][2] - (plansTime[0][1] - time);
+              if (saveTime <= 0) {
+                time = time + savePlans[savePlans.length - 1][2];
+                clearPlans.push(savePlans.pop());
+              } else {
+                time += plansTime[0][1] - time;
+                savePlans[savePlans.length - 1][2] = saveTime;
+              }
+            } else {
+              time = plansTime[0][1];
+            }
           }
         }
-        return result;
+        return clearPlans.map((v) => v[0]);
       }
       console.log(
         solution([
-          [-20, 15],
-          [-20, -15],
-          [-14, -5],
-          [-18, -13],
-          [-5, -3],
+          ["A", "12:00", "30"],
+          ["B", "12:10", "20"],
+          ["C", "15:00", "40"],
+          ["D", "15:10", "30"],
         ]),
       );
     </script>
