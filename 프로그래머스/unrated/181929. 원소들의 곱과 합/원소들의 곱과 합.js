@@ -1,0 +1,1 @@
+const solution = (num_list) => Math.pow(num_list.reduce((a,b) => a + b), 2) > num_list.reduce((a,b) => a * b) ? 1 : 0
